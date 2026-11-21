@@ -142,6 +142,11 @@ pub impl Mul for Complex with fn mul(self, other) {
 ///|
 /// Division by the scaled denominator, which keeps its magnitude in range.
 pub impl Div for Complex with fn div(self, other) {
+  if !other.is_nonzero() {
+    // Dividing by zero: the parts follow IEEE 754 on their own, so a non-zero numerator part becomes
+    // an infinity and a zero part becomes a NaN, which is what C99 does.
+    return { re: self.re / 0.0, im: self.im / 0.0, }
+  }
   if other.re.abs() >= other.im.abs() {
     let r = other.im / other.re
     let d = other.re + other.im * r
