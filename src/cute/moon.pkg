@@ -1,0 +1,7 @@
+// A layout maps a coordinate to an offset. The algebra is the one CUTLASS's CuTe describes for tensor
+// layouts: shapes and strides that nest, so a tile of a tile of a matrix stays one object. Nothing in
+// this package holds data; an array turns a layout into a view.
+
+import {
+  "moonbitlang/core/debug",
+}

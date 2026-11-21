@@ -1,13 +1,578 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "moonbitstack/CHANGE-ME"
+package "moonbitstack/moonvec"
+
+import {
+  "moonbitlang/core/debug",
+}
 
 // Values
-pub fn greet(StringView) -> String
+pub fn absolute(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn add(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn add_scalar(NDArray, Double, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn all(NDArray, axis? : Int32, keepdims? : Bool, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn angle(NDArray) -> NDArray raise VecError
+
+pub fn any(NDArray, axis? : Int32, keepdims? : Bool, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn apply_binary(BinaryOp, DType, Number, Number) -> Number raise VecError
+
+pub fn apply_reduce(ReduceOp, DType, Number, Number) -> Number raise VecError
+
+pub fn apply_unary(UnaryOp, DType, Number) -> Number raise VecError
+
+pub fn arange(start~ : Double, stop~ : Double, step? : Double, dtype? : DType) -> NDArray raise VecError
+
+pub fn arccos(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn arccosh(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn arcsin(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn arcsinh(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn arctan(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn arctan2(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn arctanh(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn argmax(NDArray, axis? : Int32, keepdims? : Bool) -> NDArray raise VecError
+
+pub fn argmin(NDArray, axis? : Int32, keepdims? : Bool) -> NDArray raise VecError
+
+pub fn argsort(NDArray, axis? : Int32) -> NDArray raise VecError
+
+pub fn array(Array[Double], dtype? : DType) -> NDArray raise VecError
+
+pub fn astype(NDArray, dtype~ : DType) -> NDArray raise VecError
+
+pub fn bessel_i(order~ : Double, NDArray) -> NDArray raise VecError
+
+pub fn bessel_j(order~ : Double, NDArray) -> NDArray raise VecError
+
+pub fn bessel_k(order~ : Double, NDArray) -> NDArray raise VecError
+
+pub fn bessel_y(order~ : Double, NDArray) -> NDArray raise VecError
+
+pub fn beta(NDArray, NDArray) -> NDArray raise VecError
+
+pub fn bitwise_and(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn bitwise_or(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn bitwise_xor(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn broadcast(Array[Int32], Array[Int32]) -> Array[Int32] raise VecError
+
+pub fn broadcast_shape(Array[Int32], Array[Int32]) -> Array[Int32] raise VecError
+
+pub fn broadcast_strides(Array[Int32], Array[Int32], Array[Int32]) -> Array[Int32]
+
+pub fn broadcast_to(NDArray, Array[Int32]) -> NDArray raise VecError
+
+pub fn cbrt(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn ceil(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn clip(NDArray, min? : Double, max? : Double, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn compare_real(Double, Double) -> Int32
+
+pub fn complex_number(Double, Double) -> Number
+
+pub fn concatenate(Array[NDArray], axis? : Int32) -> NDArray raise VecError
+
+pub fn conj(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn cos(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn cosh(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub let cpu : Cpu
+
+pub fn degrees(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn digamma(NDArray) -> NDArray raise VecError
+
+pub fn divide(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn divide_scalar(NDArray, Double, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn division_dtype(DType, DType) -> DType
+
+pub fn dot(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn equal(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn equal_nan(NDArray, NDArray) -> NDArray raise VecError
+
+pub fn erf(NDArray) -> NDArray raise VecError
+
+pub fn erfc(NDArray) -> NDArray raise VecError
+
+pub fn erfcinv(NDArray) -> NDArray raise VecError
+
+pub fn erfinv(NDArray) -> NDArray raise VecError
+
+pub fn exp(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn exp2(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn expand_dims(NDArray, axis~ : Int32) -> NDArray raise VecError
+
+pub fn expm1(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn eye(n~ : Int32, m? : Int32, k? : Int32, dtype? : DType) -> NDArray raise VecError
+
+pub fn fabs(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn flatten(NDArray) -> NDArray raise VecError
+
+pub fn floor(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn floor_divide(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn for_each_offset(NDArray, (Int32) -> Unit raise VecError) -> Unit raise VecError
+
+pub fn format_real(Double) -> String
+
+pub fn from_bytes(Bytes, Array[Int32], dtype~ : DType) -> NDArray raise VecError
+
+pub fn from_doubles(Array[Double], Array[Int32], dtype? : DType) -> NDArray raise VecError
+
+pub fn from_numbers(Array[Number], Array[Int32], dtype? : DType) -> NDArray raise VecError
+
+pub fn full(Array[Int32], Number, dtype? : DType) -> NDArray raise VecError
+
+pub fn full_like(NDArray, Number, dtype? : DType) -> NDArray raise VecError
+
+pub fn gamma(NDArray) -> NDArray raise VecError
+
+pub fn greater(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn greater_equal(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn hstack(Array[NDArray]) -> NDArray raise VecError
+
+pub fn hypot(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn imag(NDArray) -> NDArray raise VecError
+
+pub fn inner(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn invert(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn isfinite(NDArray) -> NDArray raise VecError
+
+pub fn isinf(NDArray) -> NDArray raise VecError
+
+pub fn isnan(NDArray) -> NDArray raise VecError
+
+pub fn left_shift(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn less(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn less_equal(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn lgamma(NDArray) -> NDArray raise VecError
+
+pub fn linspace(start~ : Double, stop~ : Double, num? : Int32, endpoint? : Bool, dtype? : DType) -> NDArray raise VecError
+
+pub fn log(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn log10(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn log1p(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn log2(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn logical_and(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn logical_not(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn logical_or(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn logical_xor(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn mask(NDArray, Array[Bool], axis? : Int32) -> NDArray raise VecError
+
+pub fn matmul(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn matrix(Array[Array[Double]], dtype? : DType) -> NDArray raise VecError
+
+pub fn max(NDArray, axis? : Int32, keepdims? : Bool, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn maximum(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn maximum_scalar(NDArray, Double, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn mean(NDArray, axis? : Int32, keepdims? : Bool, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn min(NDArray, axis? : Int32, keepdims? : Bool, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn minimum(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn minimum_scalar(NDArray, Double, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn mod(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn move_axis(NDArray, Int32, Int32) -> NDArray raise VecError
+
+pub fn multiply(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn multiply_scalar(NDArray, Double, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn negative(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn not_equal(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn ones(Array[Int32], dtype? : DType) -> NDArray raise VecError
+
+pub fn ones_like(NDArray, dtype? : DType) -> NDArray raise VecError
+
+pub fn outer(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn positive(NDArray) -> NDArray raise VecError
+
+pub fn power(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn power_scalar(NDArray, Double, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn prod(NDArray, axis? : Int32, keepdims? : Bool, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn promote(DType, DType) -> DType
+
+pub fn promote_all(ArrayView[DType]) -> DType
+
+pub fn radians(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn ravel(NDArray) -> NDArray raise VecError
+
+pub fn real(NDArray) -> NDArray raise VecError
+
+pub fn reciprocal(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn reduce_identity(ReduceOp, DType) -> Number
+
+pub fn remainder(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn reshape(NDArray, Array[Int32]) -> NDArray raise VecError
+
+pub fn right_shift(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn rint(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn round(NDArray) -> NDArray raise VecError
+
+pub fn select(NDArray, NDArray, NDArray) -> NDArray raise VecError
+
+pub fn sign(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn signbit(NDArray) -> NDArray raise VecError
+
+pub fn sin(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn sinh(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn slice(NDArray, Array[Index]) -> NDArray raise VecError
+
+pub fn sort(NDArray, axis? : Int32) -> NDArray raise VecError
+
+pub fn span(Int32, Int32, step? : Int32) -> Index
+
+pub fn split(NDArray, parts~ : Int32, axis? : Int32) -> Array[NDArray] raise VecError
+
+pub fn split_at(NDArray, Array[Int32], axis? : Int32) -> Array[NDArray] raise VecError
+
+pub fn sqrt(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn square(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn squeeze(NDArray, axis? : Int32) -> NDArray raise VecError
+
+pub fn stack(Array[NDArray], axis? : Int32) -> NDArray raise VecError
+
+pub fn std(NDArray, axis? : Int32, ddof? : Int32, keepdims? : Bool, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn subtract(NDArray, NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn subtract_scalar(NDArray, Double, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn sum(NDArray, axis? : Int32, keepdims? : Bool, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn swap_axes(NDArray, Int32, Int32) -> NDArray raise VecError
+
+pub fn take(NDArray, Array[Int32], axis? : Int32) -> NDArray raise VecError
+
+pub fn tan(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn tanh(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn trace(NDArray, offset? : Int32) -> NDArray raise VecError
+
+pub fn transpose(NDArray, axes? : Array[Int32]) -> NDArray raise VecError
+
+pub fn trunc(NDArray, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn variance(NDArray, axis? : Int32, ddof? : Int32, keepdims? : Bool, kernel? : &Kernel) -> NDArray raise VecError
+
+pub fn vstack(Array[NDArray]) -> NDArray raise VecError
+
+pub fn zeros(Array[Int32], dtype? : DType) -> NDArray raise VecError
+
+pub fn zeros_like(NDArray, dtype? : DType) -> NDArray raise VecError
+
+pub fn zeta(NDArray) -> NDArray raise VecError
 
 // Errors
+pub(all) suberror VecError {
+  ByteCountMismatch(total~ : Int32, item_size~ : Int32)
+  IndexOutOfBounds(index~ : Int32, len~ : Int32)
+  ShapeMismatch(want~ : Array[Int32], got~ : Array[Int32])
+  AxisOutOfRange(axis~ : Int32, ndim~ : Int32)
+  CannotReshape(size~ : Int32, shape~ : Array[Int32])
+  EmptyAxis(axis~ : Int32)
+  Domain(message~ : String)
+  NotSolvable(message~ : String)
+}
+pub fn VecError::message(Self) -> String
+pub impl @debug.Debug for VecError
 
 // Types and methods
+pub(all) enum BinaryOp {
+  Add
+  Subtract
+  Multiply
+  Divide
+  FloorDivide
+  Remainder
+  Power
+  Maximum
+  Minimum
+  ArcTangent2
+  Hypotenuse
+  BitAnd
+  BitOr
+  BitXor
+  LeftShift
+  RightShift
+  Equal
+  NotEqual
+  Less
+  LessEqual
+  Greater
+  GreaterEqual
+  LogicalAnd
+  LogicalOr
+  LogicalXor
+}
+
+pub struct Buffer {
+  data : FixedArray[Byte]
+  dtype : DType
+  len : Int32
+}
+pub fn Buffer::dtype(Self) -> DType
+pub fn Buffer::fill(Self, Number) -> Unit raise VecError
+pub fn Buffer::from_bytes(Bytes, dtype~ : DType) -> Self raise VecError
+pub fn Buffer::len(Self) -> Int32
+pub fn Buffer::new(dtype~ : DType, len~ : Int32) -> Self
+pub fn Buffer::read(Self, Int32) -> Number raise VecError
+pub fn Buffer::to_bytes(Self) -> Bytes
+pub fn Buffer::write(Self, Int32, Number) -> Unit raise VecError
+
+pub(all) struct Complex {
+  re : Double
+  im : Double
+}
+pub fn Complex::abs(Self) -> Double
+pub fn Complex::arg(Self) -> Double
+pub fn Complex::conj(Self) -> Self
+pub fn Complex::cos(Self) -> Self
+pub fn Complex::cosh(Self) -> Self
+pub fn Complex::exp(Self) -> Self
+pub fn Complex::is_nonzero(Self) -> Bool
+pub fn Complex::log(Self) -> Self
+pub fn Complex::neg(Self) -> Self
+pub fn Complex::new(Double, Double) -> Self
+pub fn Complex::pow(Self, Self) -> Self
+pub fn Complex::sin(Self) -> Self
+pub fn Complex::sinh(Self) -> Self
+pub fn Complex::sqrt(Self) -> Self
+pub fn Complex::tan(Self) -> Self
+pub fn Complex::tanh(Self) -> Self
+pub impl Add for Complex
+pub impl Div for Complex
+pub impl Eq for Complex
+pub impl Mul for Complex
+pub impl Neg for Complex
+pub impl Show for Complex
+pub impl Sub for Complex
+pub impl @debug.Debug for Complex
+
+pub struct Cpu {
+  lanes : Int32
+}
+pub fn Cpu::new() -> Self
+
+pub(all) enum DType {
+  Bool
+  I8
+  I16
+  I32
+  I64
+  U8
+  U16
+  U32
+  U64
+  F16
+  F32
+  F64
+  C64
+  C128
+}
+pub fn DType::float_size(Self) -> Int32
+pub fn DType::is_bool(Self) -> Bool
+pub fn DType::is_complex(Self) -> Bool
+pub fn DType::is_exact(Self) -> Bool
+pub fn DType::is_float(Self) -> Bool
+pub fn DType::is_integer(Self) -> Bool
+pub fn DType::is_real(Self) -> Bool
+pub fn DType::is_signed(Self) -> Bool
+pub fn DType::item_size(Self) -> Int32
+pub fn DType::name(Self) -> String
+pub fn DType::parse(StringView) -> Self?
+pub fn DType::to_real(Self) -> Self
+pub impl Eq for DType
+pub impl Show for DType
+pub impl @debug.Debug for DType
+
+pub(all) enum Index {
+  All
+  At(Int32)
+  Span(Int32, Int32, Int32)
+  NewAxis
+  Take(Array[Int32])
+  Mask(Array[Bool])
+}
+
+pub struct NDArray {
+  buffer : Buffer
+  shape : Array[Int32]
+  strides : Array[Int32]
+  offset : Int32
+}
+pub fn NDArray::at(Self, Array[Int32]) -> Number raise VecError
+pub fn NDArray::buffer(Self) -> Buffer
+pub fn NDArray::copy(Self) -> Self raise VecError
+pub fn NDArray::dtype(Self) -> DType
+pub fn NDArray::is_contiguous(Self) -> Bool
+pub fn NDArray::is_scalar(Self) -> Bool
+pub fn NDArray::item(Self) -> Number raise VecError
+pub fn NDArray::ndim(Self) -> Int32
+pub fn NDArray::new(buffer~ : Buffer, shape~ : Array[Int32], strides? : Array[Int32], offset? : Int32) -> Self raise VecError
+pub fn NDArray::offset(Self) -> Int32
+pub fn NDArray::set_at(Self, Array[Int32], Number) -> Unit raise VecError
+pub fn NDArray::shape(Self) -> Array[Int32]
+pub fn NDArray::size(Self) -> Int32
+pub fn NDArray::strides(Self) -> Array[Int32]
+pub fn NDArray::to_doubles(Self) -> Array[Double] raise VecError
+pub fn NDArray::to_numbers(Self) -> Array[Number] raise VecError
+pub fn NDArray::to_string(Self) -> String raise VecError
+pub impl Add for NDArray
+pub impl Div for NDArray
+pub impl Eq for NDArray
+pub impl Mod for NDArray
+pub impl Mul for NDArray
+pub impl Neg for NDArray
+pub impl Show for NDArray
+pub impl Sub for NDArray
+pub impl @debug.Debug for NDArray
+
+pub(all) enum Number {
+  Boolean(Bool)
+  Signed(Int64)
+  Unsigned(UInt64)
+  Real(Double)
+  Complex(Complex)
+}
+pub fn Number::cast(Self, DType) -> Self
+pub fn Number::compare_value(Self, Self) -> Int32
+pub fn Number::to_bool(Self) -> Bool
+pub fn Number::to_complex(Self) -> Complex
+pub fn Number::to_double(Self) -> Double
+pub fn Number::to_int64(Self) -> Int64
+pub fn Number::to_string(Self) -> String
+pub impl Eq for Number
+pub impl Show for Number
+pub impl @debug.Debug for Number
+
+pub struct Plan {
+  outer_sizes : Array[Int32]
+  outer_strides : Array[Array[Int32]]
+  run : Int32
+  run_strides : Array[Int32]
+  operands : Int32
+  starts : Array[Int32]
+}
+
+pub(all) enum ReduceOp {
+  Sum
+  Product
+  Minimum
+  Maximum
+  Any
+  All
+}
+
+pub(all) enum UnaryOp {
+  Negate
+  Absolute
+  Square
+  Reciprocal
+  Sign
+  Sqrt
+  Cbrt
+  Exp
+  Exp2
+  Expm1
+  Log
+  Log2
+  Log10
+  Log1p
+  Sin
+  Cos
+  Tan
+  ArcSin
+  ArcCos
+  ArcTan
+  Sinh
+  Cosh
+  Tanh
+  ArcSinh
+  ArcCosh
+  ArcTanh
+  Floor
+  Ceil
+  Trunc
+  Rint
+  Degrees
+  Radians
+  LogicalNot
+  Conjugate
+}
 
 // Type aliases
 
 // Traits
+pub(open) trait Kernel {
+  fn name(Self) -> String
+  fn binary(Self, BinaryOp, DType, Buffer, Int32, Int32, Buffer, Int32, Int32, Buffer, Int32, Int32, Int32) -> Unit raise VecError
+  fn unary(Self, UnaryOp, DType, Buffer, Int32, Int32, Buffer, Int32, Int32, Int32) -> Unit raise VecError
+  fn matmul(Self, DType, Buffer, Int32, Buffer, Int32, Buffer, Int32, Int32, Int32, Int32) -> Unit raise VecError
+  fn reduce(Self, ReduceOp, DType, Buffer, Int32, Int32, Int32, Number) -> Number raise VecError
+}

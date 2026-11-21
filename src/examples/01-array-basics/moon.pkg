@@ -1,0 +1,5 @@
+import {
+  "moonbitstack/moonvec" @vec,
+}
+
+pkgtype(kind: "executable")

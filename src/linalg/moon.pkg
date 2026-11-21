@@ -1,0 +1,13 @@
+// Dense linear algebra on the array type: solving, factoring and the norms that measure a matrix.
+//
+// The routines here work on a copy in double precision and store the answer back in the dtype the
+// caller's array has, because a factorisation in single precision loses more than it saves.
+
+import {
+  "moonbitstack/moonvec" @v,
+  "moonbitlang/core/math",
+}
+
+import {
+  "moonbitlang/core/json",
+} for "wbtest"

@@ -1,0 +1,44 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbitstack/moonvec/cute"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn compact(Array[Int32]) -> Layout
+
+pub fn mode(size~ : Int32, stride~ : Int32) -> Layout
+
+pub fn product(Layout, Layout) -> Layout
+
+// Errors
+pub(all) suberror LayoutError {
+  RankMismatch(want~ : Int32, got~ : Int32)
+  IndexOutOfRange(index~ : Int32, size~ : Int32)
+  NotDivisible(tile~ : Int32, size~ : Int32)
+  EmptyLayout
+}
+pub fn LayoutError::message(Self) -> String
+
+// Types and methods
+pub(all) enum Layout {
+  Mode(Int32, Int32)
+  Tuple(Array[Layout])
+}
+pub fn Layout::coalesce(Self) -> Self
+pub fn Layout::cosize(Self) -> Int32
+pub fn Layout::divide(Self, tile~ : Int32) -> (Self, Self) raise LayoutError
+pub fn Layout::offset(Self, Array[Int32]) -> Int32 raise LayoutError
+pub fn Layout::offset_of_index(Self, Int32) -> Int32 raise LayoutError
+pub fn Layout::shape(Self) -> Array[Int32]
+pub fn Layout::size(Self) -> Int32
+pub fn Layout::strides(Self) -> Array[Int32]
+pub fn Layout::to_string(Self) -> String
+pub impl Eq for Layout
+pub impl Show for Layout
+pub impl @debug.Debug for Layout
+
+// Type aliases
+
+// Traits

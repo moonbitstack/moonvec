@@ -1,0 +1,47 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbitstack/moonvec/linalg"
+
+import {
+  "moonbitstack/moonvec",
+}
+
+// Values
+pub fn cholesky(@moonvec.NDArray) -> @moonvec.NDArray raise @moonvec.VecError
+
+pub fn det(@moonvec.NDArray) -> Double raise @moonvec.VecError
+
+pub fn eigh(@moonvec.NDArray) -> (@moonvec.NDArray, @moonvec.NDArray) raise @moonvec.VecError
+
+pub fn inv(@moonvec.NDArray) -> @moonvec.NDArray raise @moonvec.VecError
+
+pub fn kron(@moonvec.NDArray, @moonvec.NDArray) -> @moonvec.NDArray raise @moonvec.VecError
+
+pub fn lstsq(@moonvec.NDArray, @moonvec.NDArray) -> @moonvec.NDArray raise @moonvec.VecError
+
+pub fn matrix_norm(@moonvec.NDArray, order? : Norm) -> Double raise @moonvec.VecError
+
+pub fn matrix_power(@moonvec.NDArray, exponent~ : Int32) -> @moonvec.NDArray raise @moonvec.VecError
+
+pub fn norm(@moonvec.NDArray, order? : Norm, axis? : Int32) -> @moonvec.NDArray raise @moonvec.VecError
+
+pub fn qr(@moonvec.NDArray) -> (@moonvec.NDArray, @moonvec.NDArray) raise @moonvec.VecError
+
+pub fn solve(@moonvec.NDArray, @moonvec.NDArray) -> @moonvec.NDArray raise @moonvec.VecError
+
+pub fn svd(@moonvec.NDArray) -> (@moonvec.NDArray, @moonvec.NDArray, @moonvec.NDArray) raise @moonvec.VecError
+
+// Errors
+
+// Types and methods
+pub(all) enum Norm {
+  Frobenius
+  One
+  Two
+  Infinity
+  NegInfinity
+  P(Double)
+}
+
+// Type aliases
+
+// Traits

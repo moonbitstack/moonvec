@@ -1,2 +1,14 @@
-// What this package implements, and a first-hand link to the specification it
-// implements. A package without that link is not finished.
+warnings = "-alert_experimental"
+
+import {
+  "moonbitstack/moonmath",
+  "moonbitstack/moonmath/special",
+  "moonbitlang/core/math",
+  "moonbitlang/core/debug",
+  "moonbitlang/core/double",
+  "moonbitlang/core/v128",
+}
+
+import {
+  "moonbitlang/core/json",
+} for "wbtest"
