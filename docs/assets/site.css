@@ -1915,14 +1915,13 @@ body.api-filtered .api-group:not(.has-match) {
     border-bottom: 1px solid var(--rule);
     padding-bottom: 12px;
   }
+  /* The full index is useful beside the text and unusable above it: on a phone it would push the
+     reference 2 500 pixels down. The filter still searches every entry, and the package names stay. */
   .api-side ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
+    display: none;
   }
-  .api-side li a {
-    border: 1px solid var(--rule);
-    border-radius: 2px;
+  .api-side h2 {
+    margin: 10px 0 4px;
   }
 }
 
