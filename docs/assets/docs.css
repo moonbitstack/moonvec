@@ -1,0 +1,391 @@
+/* The guide and the reference: a reading column with a sticky rail, entries, and the filter. */
+
+/* ---------- guide layout ---------- */
+
+.guide {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  padding: 44px 0 80px;
+  align-items: start;
+}
+
+.guide-nav {
+  position: sticky;
+  top: 86px;
+  font-size: 13.5px;
+  border-left: 1px solid var(--rule);
+  padding-left: 0;
+}
+
+.guide-nav ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.guide-nav a {
+  display: flex;
+  gap: 10px;
+  padding: 7px 12px 7px 14px;
+  color: var(--ink-2);
+  text-decoration: none;
+  border-radius: 0 3px 3px 0;
+  position: relative;
+}
+
+.guide-nav a .n {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-3);
+  padding-top: 2px;
+  user-select: none;
+}
+
+.guide-nav a:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 3%, transparent);
+}
+
+.guide-nav a.active {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--teal) 8%, transparent);
+}
+
+.guide-nav a.active::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: var(--teal);
+  clip-path: polygon(0 0, 100% 14%, 100% 86%, 0 100%);
+}
+
+.guide-body {
+  min-width: 0;
+}
+
+.step {
+  padding-bottom: 54px;
+  margin-bottom: 54px;
+  border-bottom: 1px solid var(--rule);
+  scroll-margin-top: 92px;
+}
+
+.step:last-child {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+
+.step h2 {
+  font-size: 1.62rem;
+  margin: 8px 0 14px;
+}
+
+.step p {
+  color: var(--ink-2);
+  margin: 0 0 16px;
+  max-width: 68ch;
+}
+
+.step p code {
+  color: var(--ink);
+}
+
+.step .figure-stack {
+  margin: 22px 0 26px;
+}
+
+.step ul {
+  margin: 0 0 18px;
+  padding-left: 20px;
+  color: var(--ink-2);
+}
+
+.step li {
+  margin-bottom: 6px;
+}
+
+@media (width <= 900px) {
+  .guide {
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: 28px;
+  }
+  .guide-nav {
+    position: static;
+    border-left: 0;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 12px;
+    margin-bottom: 8px;
+  }
+  .guide-nav ol {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .guide-nav a {
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    white-space: nowrap;
+    padding: 5px 10px;
+  }
+  .guide-nav a.active::before {
+    display: none;
+  }
+}
+
+/* ---------- api ---------- */
+
+.api-shell {
+  display: grid;
+  grid-template-columns: 236px minmax(0, 1fr);
+  gap: 40px;
+  padding: 30px 0 80px;
+  align-items: start;
+}
+
+.api-side {
+  position: sticky;
+  top: 84px;
+  max-height: calc(100vh - 108px);
+  overflow: auto;
+  padding-right: 6px;
+}
+
+.api-search {
+  width: 100%;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  padding: 8px 10px;
+  border: 1px solid var(--rule-2);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.api-search:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+}
+
+.api-search::placeholder {
+  color: var(--ink-3);
+}
+
+.api-side h2 {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 18px 0 8px;
+  font-weight: 600;
+}
+
+.api-side ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.api-side li a {
+  display: block;
+  padding: 3px 8px 3px 10px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-2);
+  text-decoration: none;
+  border-radius: 0 2px 2px 0;
+  overflow-wrap: anywhere;
+}
+
+.api-side li a:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.api-main {
+  min-width: 0;
+}
+
+.api-package {
+  margin-bottom: 58px;
+  scroll-margin-top: 88px;
+}
+
+.api-package > header {
+  border-bottom: 1px solid var(--rule-2);
+  padding-bottom: 12px;
+  margin-bottom: 26px;
+}
+
+.api-package h2 {
+  font-family: var(--mono);
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+}
+
+.api-package .pkg-note {
+  margin: 8px 0 0;
+  color: var(--ink-2);
+  font-size: 14.5px;
+  max-width: 70ch;
+}
+
+.api-group {
+  margin-bottom: 34px;
+}
+
+.api-group > h3 {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 600;
+  margin: 0 0 10px;
+  user-select: none;
+}
+
+.entry {
+  border-top: 1px solid var(--rule);
+  padding: 16px 0 18px;
+  scroll-margin-top: 80px;
+}
+
+.entry:first-of-type {
+  border-top: 0;
+}
+
+.entry .signature {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.entry .signature .kw {
+  color: var(--blue);
+}
+
+.entry .signature .ty {
+  color: var(--teal);
+}
+
+.entry .signature .nm {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.entry .doc {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--ink-2);
+  max-width: 78ch;
+}
+
+.entry .doc code {
+  color: var(--ink);
+}
+
+.entry .doc p {
+  margin: 0 0 6px;
+}
+
+.entry .members {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.entry .members li {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-2);
+  border: 1px solid var(--rule);
+  padding: 1px 6px;
+  border-radius: 2px;
+  background: var(--paper);
+}
+
+.params {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 12.5px;
+}
+
+.params th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 600;
+  padding: 0 12px 4px 0;
+  user-select: none;
+}
+
+.params td {
+  padding: 4px 12px 4px 0;
+  border-top: 1px solid var(--rule);
+  vertical-align: top;
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+
+.params td:first-child {
+  font-family: var(--mono);
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.params td:nth-child(2) {
+  font-family: var(--mono);
+  font-size: 11.5px;
+}
+
+.api-empty {
+  display: none;
+  padding: 30px 0;
+  color: var(--ink-3);
+  font-size: 14px;
+}
+
+body.api-filtered .entry:not(.match),
+body.api-filtered .api-group:not(.has-match) {
+  display: none;
+}
+
+@media (width <= 900px) {
+  .api-shell {
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: 20px;
+  }
+  .api-side {
+    position: static;
+    max-height: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 12px;
+  }
+  /* The full index is useful beside the text and unusable above it: on a phone it would push the
+     reference 2 500 pixels down. The filter still searches every entry, and the package names stay. */
+  .api-side ul {
+    display: none;
+  }
+  .api-side h2 {
+    margin: 10px 0 4px;
+  }
+}
+
