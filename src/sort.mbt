@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 ///|
-/// A sorted copy along one axis, the last by default; NaNs go to the end, as NumPy puts them.
+/// A sorted copy along one axis, the last by default; NaNs go to the end.
 ///
 /// The sort is stable, so equal values keep the order they had, which `argsort` relies on.
 pub fn sort(array : NDArray, axis? : Int32) -> NDArray raise VecError {

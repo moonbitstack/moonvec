@@ -532,7 +532,7 @@ fn floor_mod_int(a : Int64, b : Int64) -> Int64 {
 }
 
 ///|
-/// The remainder with the sign of the divisor, as `numpy.remainder` defines it.
+/// The remainder with the sign of the divisor.
 fn float_mod(a : Double, b : Double) -> Double {
   if b == 0.0 || a.is_nan() || b.is_nan() || a.is_inf() {
     @double.not_a_number
@@ -582,7 +582,7 @@ fn uint_power(base : UInt64, exponent : UInt64) -> UInt64 {
 }
 
 ///|
-/// Shifts left, refusing a negative count; a count past the width leaves zero, as NumPy does.
+/// Shifts left, refusing a negative count; a count past the width leaves zero.
 fn shift_left_int(value : Int64, count : Int64) -> Int64 raise VecError {
   if count < 0L {
     raise Domain(message="a shift count cannot be negative")

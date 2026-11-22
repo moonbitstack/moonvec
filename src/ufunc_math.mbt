@@ -14,11 +14,13 @@ pub fn cbrt(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
 }
 
 ///|
+/// `e` raised to each element.
 pub fn exp(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, Exp, pick_kernel(kernel))
 }
 
 ///|
+/// Two raised to each element.
 pub fn exp2(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, Exp2, pick_kernel(kernel))
 }
@@ -30,16 +32,19 @@ pub fn expm1(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
 }
 
 ///|
+/// Natural logarithm; zero gives minus infinity and a negative input gives NaN.
 pub fn log(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, Log, pick_kernel(kernel))
 }
 
 ///|
+/// Base-two logarithm, with the same treatment of non-positive input as `log`.
 pub fn log2(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, Log2, pick_kernel(kernel))
 }
 
 ///|
+/// Base-ten logarithm, with the same treatment of non-positive input as `log`.
 pub fn log10(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, Log10, pick_kernel(kernel))
 }
@@ -51,61 +56,73 @@ pub fn log1p(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
 }
 
 ///|
+/// Sine of each element, in radians.
 pub fn sin(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, Sin, pick_kernel(kernel))
 }
 
 ///|
+/// Cosine of each element, in radians.
 pub fn cos(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, Cos, pick_kernel(kernel))
 }
 
 ///|
+/// Tangent of each element, in radians.
 pub fn tan(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, Tan, pick_kernel(kernel))
 }
 
 ///|
+/// Inverse sine of each element, in radians; outside `[-1, 1]` it is NaN.
 pub fn arcsin(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, ArcSin, pick_kernel(kernel))
 }
 
 ///|
+/// Inverse cosine of each element, in radians; outside `[-1, 1]` it is NaN.
 pub fn arccos(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, ArcCos, pick_kernel(kernel))
 }
 
 ///|
+/// Inverse tangent of each element, in radians.
 pub fn arctan(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, ArcTan, pick_kernel(kernel))
 }
 
 ///|
+/// Hyperbolic sine of each element.
 pub fn sinh(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, Sinh, pick_kernel(kernel))
 }
 
 ///|
+/// Hyperbolic cosine of each element.
 pub fn cosh(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, Cosh, pick_kernel(kernel))
 }
 
 ///|
+/// Hyperbolic tangent of each element.
 pub fn tanh(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, Tanh, pick_kernel(kernel))
 }
 
 ///|
+/// Inverse hyperbolic sine of each element.
 pub fn arcsinh(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, ArcSinh, pick_kernel(kernel))
 }
 
 ///|
+/// Inverse hyperbolic cosine of each element; below one it is NaN.
 pub fn arccosh(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, ArcCosh, pick_kernel(kernel))
 }
 
 ///|
+/// Inverse hyperbolic tangent of each element; outside `(-1, 1)` it is NaN.
 pub fn arctanh(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, ArcTanh, pick_kernel(kernel))
 }
@@ -129,8 +146,7 @@ pub fn trunc(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
 }
 
 ///|
-/// Rounds to the nearest integer with a tie going to the even one, the way IEEE 754 does and NumPy's
-/// `rint` does.
+/// Rounds to the nearest integer with a tie going to the even one, the way IEEE 754 does.
 pub fn rint(a : NDArray, kernel? : &Kernel) -> NDArray raise VecError {
   math_unary(a, Rint, pick_kernel(kernel))
 }

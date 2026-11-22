@@ -36,11 +36,13 @@ pub fn Buffer::from_bytes(
 }
 
 ///|
+/// The element type this buffer stores.
 pub fn Buffer::dtype(self : Buffer) -> DType {
   self.dtype
 }
 
 ///|
+/// How many elements the buffer holds.
 pub fn Buffer::len(self : Buffer) -> Int32 {
   self.len
 }

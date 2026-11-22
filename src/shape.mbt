@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 ///|
-/// One axis selector in a slice, read left to right like NumPy's index tuple.
+/// One axis selector in a slice, read left to right, one per axis.
 pub(all) enum Index {
   ///
   /// The whole axis.
@@ -13,8 +13,7 @@ pub(all) enum Index {
   At(Int32)
   ///
   /// A run of positions: start, stop (exclusive) and step, with negative indices counting from the
-  /// end and a negative step walking backwards. Out-of-range bounds are clamped, as NumPy clamps
-  /// them.
+  /// end and a negative step walking backwards. Out-of-range bounds are clamped rather than refused.
   Span(Int32, Int32, Int32)
   ///
   /// A new axis of length 1.

@@ -12,6 +12,7 @@ pub(all) struct Complex {
 }
 
 ///|
+/// A complex number from its real and imaginary parts.
 pub fn Complex::new(re : Double, im : Double) -> Complex {
   { re, im, }
 }
@@ -29,16 +30,19 @@ pub fn Complex::arg(self : Complex) -> Double {
 }
 
 ///|
+/// The conjugate: the imaginary part negated.
 pub fn Complex::conj(self : Complex) -> Complex {
   { re: self.re, im: -self.im, }
 }
 
 ///|
+/// The additive inverse.
 pub fn Complex::neg(self : Complex) -> Complex {
   { re: -self.re, im: -self.im, }
 }
 
 ///|
+/// `e` raised to this value, by Euler's formula.
 pub fn Complex::exp(self : Complex) -> Complex {
   let r = @math.exp(self.re)
   { re: r * @math.cos(self.im), im: r * @math.sin(self.im), }
@@ -80,6 +84,7 @@ pub fn Complex::pow(self : Complex, exponent : Complex) -> Complex {
 }
 
 ///|
+/// The sine, extended to the complex plane.
 pub fn Complex::sin(self : Complex) -> Complex {
   {
     re: @math.sin(self.re) * @math.cosh(self.im),
@@ -88,6 +93,7 @@ pub fn Complex::sin(self : Complex) -> Complex {
 }
 
 ///|
+/// The cosine, extended to the complex plane.
 pub fn Complex::cos(self : Complex) -> Complex {
   {
     re: @math.cos(self.re) * @math.cosh(self.im),
@@ -96,11 +102,13 @@ pub fn Complex::cos(self : Complex) -> Complex {
 }
 
 ///|
+/// The tangent, extended to the complex plane.
 pub fn Complex::tan(self : Complex) -> Complex {
   self.sin() / self.cos()
 }
 
 ///|
+/// The hyperbolic sine, extended to the complex plane.
 pub fn Complex::sinh(self : Complex) -> Complex {
   {
     re: @math.sinh(self.re) * @math.cos(self.im),
@@ -109,6 +117,7 @@ pub fn Complex::sinh(self : Complex) -> Complex {
 }
 
 ///|
+/// The hyperbolic cosine, extended to the complex plane.
 pub fn Complex::cosh(self : Complex) -> Complex {
   {
     re: @math.cosh(self.re) * @math.cos(self.im),
@@ -117,6 +126,7 @@ pub fn Complex::cosh(self : Complex) -> Complex {
 }
 
 ///|
+/// The hyperbolic tangent, extended to the complex plane.
 pub fn Complex::tanh(self : Complex) -> Complex {
   self.sinh() / self.cosh()
 }
@@ -174,7 +184,7 @@ pub impl Show for Complex with fn to_string(self) {
 }
 
 ///|
-/// The form NumPy prints: `(1+2j)`, `(1-2j)`, `(1.5+0j)`.
+/// The form the printer writes: `(1+2j)`, `(1-2j)`, `(1.5+0j)`.
 fn Complex::to_repr_string(self : Complex) -> String {
   let sign = if is_negative(self.im) { "-" } else { "+" }
   "(" + format_real(self.re) + sign + format_real(self.im.abs()) + "j)"

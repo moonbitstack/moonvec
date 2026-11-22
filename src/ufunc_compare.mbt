@@ -12,6 +12,7 @@ pub fn equal(
 }
 
 ///|
+/// Elementwise `a != b` as a boolean array; NaN is not equal to anything, itself included.
 pub fn not_equal(
   a : NDArray,
   b : NDArray,
@@ -31,6 +32,7 @@ pub fn less(
 }
 
 ///|
+/// Elementwise `a <= b` as a boolean array.
 pub fn less_equal(
   a : NDArray,
   b : NDArray,
@@ -40,6 +42,7 @@ pub fn less_equal(
 }
 
 ///|
+/// Elementwise `a > b` as a boolean array.
 pub fn greater(
   a : NDArray,
   b : NDArray,
@@ -49,6 +52,7 @@ pub fn greater(
 }
 
 ///|
+/// Elementwise `a >= b` as a boolean array.
 pub fn greater_equal(
   a : NDArray,
   b : NDArray,
@@ -66,6 +70,7 @@ pub fn equal_nan(a : NDArray, b : NDArray) -> NDArray raise VecError {
 }
 
 ///|
+/// Elementwise logical and, reading both operands as truth values.
 pub fn logical_and(
   a : NDArray,
   b : NDArray,
@@ -76,6 +81,7 @@ pub fn logical_and(
 }
 
 ///|
+/// Elementwise logical or, reading both operands as truth values.
 pub fn logical_or(
   a : NDArray,
   b : NDArray,

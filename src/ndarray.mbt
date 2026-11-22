@@ -4,11 +4,11 @@
 ///|
 /// An N-dimensional array: a view over a flat buffer, described by a shape and a stride per axis.
 ///
-/// The strides are counted in elements, not bytes, and follow the C order NumPy uses: the last axis
-/// varies fastest. Any axis may have stride 0, which is how a size-one axis broadcasts without
+/// The strides are counted in elements, not bytes, and follow C order: the last axis varies
+/// fastest. Any axis may have stride 0, which is how a size-one axis broadcasts without
 /// copying its data, and any axis may be negative, which is how a reversed view is made. Two arrays
 /// made by slicing the same array share one buffer, so a write through one is visible through the
-/// other, as with NumPy's views.
+/// other.
 pub struct NDArray {
   buffer : Buffer
   shape : Array[Int32]
@@ -57,6 +57,7 @@ pub fn NDArray::new(
 }
 
 ///|
+/// The buffer this view reads, shared with every other view of the same data.
 pub fn NDArray::buffer(self : NDArray) -> Buffer {
   self.buffer
 }
@@ -80,16 +81,19 @@ pub fn NDArray::offset(self : NDArray) -> Int32 {
 }
 
 ///|
+/// How many axes the shape has.
 pub fn NDArray::ndim(self : NDArray) -> Int32 {
   self.shape.length()
 }
 
 ///|
+/// How many elements the shape holds, counting a stretched axis once per position.
 pub fn NDArray::size(self : NDArray) -> Int32 {
   element_count(self.shape)
 }
 
 ///|
+/// The element type of the buffer.
 pub fn NDArray::dtype(self : NDArray) -> DType {
   self.buffer.dtype
 }
@@ -187,8 +191,8 @@ pub fn NDArray::to_numbers(self : NDArray) -> Array[Number] raise VecError {
 }
 
 ///|
-/// Every element as a double, in row-major order. Complex values lose their imaginary part, which
-/// is what NumPy does when a complex array is asked for its `float64` values.
+/// Every element as a double, in row-major order. Complex values lose their imaginary part, as any
+/// conversion to a real type does.
 pub fn NDArray::to_doubles(self : NDArray) -> Array[Double] raise VecError {
   let values = self.to_numbers()
   values.map(fn(v) { v.to_double() })

@@ -23,6 +23,7 @@ pub fn complex_number(re : Double, im : Double) -> Number {
 }
 
 ///|
+/// The value as a double; an integer above 2^53 loses its low bits.
 pub fn Number::to_double(self : Number) -> Double {
   match self {
     Boolean(b) => if b { 1.0 } else { 0.0 }
@@ -46,6 +47,7 @@ pub fn Number::to_int64(self : Number) -> Int64 {
 }
 
 ///|
+/// True when the value is not zero; a complex number is true when either part is.
 pub fn Number::to_bool(self : Number) -> Bool {
   match self {
     Boolean(b) => b
@@ -57,6 +59,7 @@ pub fn Number::to_bool(self : Number) -> Bool {
 }
 
 ///|
+/// The value as a complex number, with a zero imaginary part.
 pub fn Number::to_complex(self : Number) -> Complex {
   match self {
     Boolean(b) => { re: if b { 1.0 } else { 0.0 }, im: 0.0, }
@@ -138,7 +141,7 @@ fn wrap_uint64(value : Int64, bits : Int32) -> UInt64 {
 
 ///|
 /// Compares two values by magnitude only; complex pairs compare by real part then imaginary part,
-/// which is the order NumPy sorts them in.
+/// which is the order values sort in.
 pub fn Number::compare_value(self : Number, other : Number) -> Int32 {
   match (self, other) {
     (Boolean(a), Boolean(b)) => if a == b { 0 } else if a { 1 } else { -1 }
@@ -228,6 +231,7 @@ pub impl @debug.Debug for Number with fn to_repr(self) {
 pub extend Number with Show::{to_string}
 
 ///|
+/// The value as the array printer writes it.
 pub impl Show for Number with fn to_string(self) {
   match self {
     Boolean(b) => if b { "true" } else { "false" }
@@ -239,7 +243,7 @@ pub impl Show for Number with fn to_string(self) {
 }
 
 ///|
-/// A double as NumPy writes it: `1.0` rather than `1`, with `nan` and `inf` spelled out.
+/// A double as the printer writes it: `1.0` rather than `1`, with `nan` and `inf` spelled out.
 pub fn format_real(value : Double) -> String {
   if value.is_nan() {
     "nan"

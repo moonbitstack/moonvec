@@ -76,7 +76,7 @@ pub fn stack(
 }
 
 ///|
-/// Splits an axis into equal parts; the length must divide evenly, as NumPy's `split` requires.
+/// Splits an axis into equal parts; the length must divide evenly.
 pub fn split(
   array : NDArray,
   parts~ : Int32,
@@ -155,8 +155,7 @@ pub fn vstack(arrays : Array[NDArray]) -> NDArray raise VecError {
 }
 
 ///|
-/// Joins 1-D arrays end to end, and 2-D arrays column by column, which is the shape NumPy's `hstack`
-/// has.
+/// Joins 1-D arrays end to end, and 2-D arrays along the second axis.
 pub fn hstack(arrays : Array[NDArray]) -> NDArray raise VecError {
   if arrays.length() == 0 {
     raise ShapeMismatch(want=[0], got=[])

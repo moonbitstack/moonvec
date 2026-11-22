@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 ///|
-/// Matrix multiplication, with NumPy's rules for the shapes that are not both matrices.
+/// Matrix multiplication, with the usual rules for the shapes that are not both matrices.
 ///
 /// The last axis of `a` contracts with the second-to-last of `b`. A 1-D operand is taken as a row or
 /// a column and the axis it borrowed is removed from the result, so a vector times a vector is a
@@ -89,8 +89,8 @@ pub fn matmul(
 /// The dot product of two arrays: `a`'s last axis against `b`'s second-to-last, with the axes that
 /// are left over kept in order.
 ///
-/// For 1-D and 2-D operands this is `matmul`. For higher ranks it differs, as in NumPy: a stack times
-/// a matrix contracts every row of the stack against the same matrix.
+/// For 1-D and 2-D operands this is `matmul`. For higher ranks it differs: a stack times a matrix
+/// contracts every row of the stack against the same matrix.
 pub fn dot(
   a : NDArray,
   b : NDArray,

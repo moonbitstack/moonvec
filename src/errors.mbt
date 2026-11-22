@@ -36,6 +36,7 @@ pub(all) suberror VecError {
 }
 
 ///|
+/// One line naming what was refused, for a caller that holds only the error.
 pub fn VecError::message(self : VecError) -> String {
   match self {
     ByteCountMismatch(total~, item_size~) =>

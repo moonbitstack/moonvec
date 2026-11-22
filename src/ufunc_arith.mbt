@@ -134,6 +134,7 @@ pub fn bitwise_and(
 }
 
 ///|
+/// Elementwise bitwise or; both operands are read as integers.
 pub fn bitwise_or(
   a : NDArray,
   b : NDArray,
@@ -143,6 +144,7 @@ pub fn bitwise_or(
 }
 
 ///|
+/// Elementwise bitwise exclusive or; both operands are read as integers.
 pub fn bitwise_xor(
   a : NDArray,
   b : NDArray,
@@ -152,6 +154,7 @@ pub fn bitwise_xor(
 }
 
 ///|
+/// Elementwise left shift, with the second array as the count.
 pub fn left_shift(
   a : NDArray,
   b : NDArray,
@@ -161,6 +164,7 @@ pub fn left_shift(
 }
 
 ///|
+/// Elementwise right shift, with the second array as the count.
 pub fn right_shift(
   a : NDArray,
   b : NDArray,
@@ -277,7 +281,7 @@ pub impl Neg for NDArray with fn neg(self) {
 
 ///|
 /// Adds a scalar to every element, keeping the array's dtype; `1` added to an `int8` array stays
-/// `int8`, as an untyped Python int would in NumPy.
+/// `int8`, because a scalar does not widen the array.
 pub fn add_scalar(
   a : NDArray,
   value : Double,
@@ -287,6 +291,7 @@ pub fn add_scalar(
 }
 
 ///|
+/// Subtracts a scalar from every element, keeping the array's dtype.
 pub fn subtract_scalar(
   a : NDArray,
   value : Double,
@@ -296,6 +301,7 @@ pub fn subtract_scalar(
 }
 
 ///|
+/// Multiplies every element by a scalar, keeping the array's dtype.
 pub fn multiply_scalar(
   a : NDArray,
   value : Double,
@@ -316,6 +322,7 @@ pub fn divide_scalar(
 }
 
 ///|
+/// Raises every element to a scalar power, by the same rules as `power`.
 pub fn power_scalar(
   a : NDArray,
   value : Double,
@@ -325,6 +332,7 @@ pub fn power_scalar(
 }
 
 ///|
+/// The larger of each element and a scalar, elementwise.
 pub fn maximum_scalar(
   a : NDArray,
   value : Double,
@@ -334,6 +342,7 @@ pub fn maximum_scalar(
 }
 
 ///|
+/// The smaller of each element and a scalar, elementwise.
 pub fn minimum_scalar(
   a : NDArray,
   value : Double,
@@ -379,7 +388,7 @@ pub fn clip(
 
 ///|
 /// Chooses elementwise from `x` where `condition` holds and from `y` elsewhere; all three broadcast
-/// together. NumPy spells this `where`; `where` is a keyword in MoonBit.
+/// together. It is named `select` because `where` is a keyword in MoonBit.
 pub fn select(
   condition : NDArray,
   x : NDArray,

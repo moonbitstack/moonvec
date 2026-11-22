@@ -54,6 +54,7 @@ pub fn zeros_like(
 }
 
 ///|
+/// An array of ones shaped like `prototype`.
 pub fn ones_like(prototype : NDArray, dtype? : DType) -> NDArray raise VecError {
   full_like(prototype, Signed(1L), dtype?)
 }
@@ -72,8 +73,8 @@ fn filled(
 ///|
 /// Evenly spaced values in `[start, stop)`, stepping by `step`.
 ///
-/// The count is computed from the three values the way NumPy does, so `arange(0, 1, 0.3)` stops at
-/// 0.9 rather than at 1.2. A step whose sign does not lead towards `stop` gives an empty array
+/// The count is computed from the span and the step, so `arange(0, 1, 0.3)` stops at 0.9 rather
+/// than at 1.2. A step whose sign does not lead towards `stop` gives an empty array
 /// instead of looping forever.
 pub fn arange(
   start~ : Double,
@@ -106,7 +107,7 @@ pub fn arange(
 ///|
 /// `num` values from `start` to `stop`; with `endpoint` (the default) the last value is exactly
 /// `stop`, so the spacing is `(stop - start) / (num - 1)`. With one value the result is `start`,
-/// which is what NumPy returns.
+/// not `stop`.
 pub fn linspace(
   start~ : Double,
   stop~ : Double,

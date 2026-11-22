@@ -86,6 +86,7 @@ pub struct Cpu {
 }
 
 ///|
+/// The default backend, sized for the vector registers the build target provides.
 pub fn Cpu::new() -> Cpu {
   { lanes: lanes_f64, }
 }

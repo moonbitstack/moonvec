@@ -276,6 +276,7 @@ pub(all) suberror LayoutError {
 }
 
 ///|
+/// One line naming what the layout algebra refused.
 pub fn LayoutError::message(self : LayoutError) -> String {
   match self {
     RankMismatch(want~, got~) =>
@@ -307,6 +308,7 @@ pub impl @debug.Debug for Layout with fn to_repr(self) {
 pub extend Layout with Show::{to_string}
 
 ///|
+/// The layout in `size:stride` form, with modes nested in parentheses.
 pub impl Show for Layout with fn to_string(self) {
   describe(self)
 }

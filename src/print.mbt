@@ -10,7 +10,7 @@ let print_limit : Int32 = 1000
 let print_edge : Int32 = 3
 
 ///|
-/// The array laid out the way NumPy prints one, with the dtype after the values.
+/// The array laid out one row per line, with the dtype after the values.
 pub fn NDArray::to_string(self : NDArray) -> String raise VecError {
   let mut text = "array("
   text = text + render(self)
