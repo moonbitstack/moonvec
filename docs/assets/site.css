@@ -87,8 +87,17 @@
   box-sizing: border-box;
 }
 
-html {
+html,
+button,
+input,
+textarea,
+select {
+  /* Readers should see the characters they have to type, not the ligature the font would draw. Form
+     controls do not inherit, so they are named here as well. */
   font-variant-ligatures: no-contextual;
+}
+
+html {
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
