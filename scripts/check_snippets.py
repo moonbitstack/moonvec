@@ -7,7 +7,8 @@ the same file defined. `<!-- nocheck -->` on the line above a block skips it; a 
 ```` ```mbt native ```` is checked on the native target only. On a page of the site a block is
 `<pre data-lang="mbt">` (or `"moonbit"`); `data-native` or `data-target="native"` marks a native one
 and `data-nocheck` skips it. A page that declares an alias (`"moonbitstack/moonlog" @serlog`) is read
-with that alias.
+with that alias, either in an import block or in `<meta name="moonbit-imports">` for a page that
+shows no imports of its own.
 
 Usage: python scripts/check_snippets.py [--moon moon] [file ...]
 """
@@ -31,6 +32,7 @@ CONFIG = re.compile(r"(?:\s*//[^\n]*\n)*\s*(import \{|options\(|name\s*=|pkgtype
 CORE = {"array", "bench", "bigint", "buffer", "builtin", "bytes", "char", "cmp", "coverage", "deque", "double", "encoding", "env", "error", "float", "hashmap", "hashset", "immut", "int", "int16", "int64", "json", "list", "math", "option", "queue", "quickcheck", "random", "rational", "ref", "result", "set", "sorted_map", "sorted_set", "strconv", "string", "test", "tuple", "uint", "uint16", "uint64", "unit"}
 NESTED = {"utf8": "encoding/utf8", "utf16": "encoding/utf16", "base64": "encoding/base64"}
 DECLARED = re.compile(r'"([\w\-/]+)"\s+@([a-z_][a-z0-9_]*)')
+META_IMPORTS = re.compile(r'<meta\s+name="moonbit-imports"\s+content=\'([^\']*)\'')
 ALL = ["wasm", "wasm-gc", "js", "native"]
 
 
@@ -170,7 +172,10 @@ def main():
         file = file if file.is_absolute() else ROOT / file
         if not file.exists():
             continue
-        named = {alias: path for path, alias in DECLARED.findall(file.read_text(encoding="utf-8"))}
+        text = file.read_text(encoding="utf-8")
+        named = {alias: path for path, alias in DECLARED.findall(text)}
+        for content in META_IMPORTS.findall(text):
+            named.update({alias: path for path, alias in DECLARED.findall(html.unescape(content))})
         found = list(blocks(file))
         for native in (False, True):
             items = [(line, body) for line, nat, body in found if nat == native]

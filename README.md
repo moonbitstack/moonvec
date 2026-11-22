@@ -1,8 +1,13 @@
 <div align="center">
 
-# moonvec
+# Numerical MoonBit Library
 
-**N-dimensional arrays for MoonBit: dtypes, broadcasting, universal functions and linear algebra.**
+**moonvec — N-dimensional arrays for MoonBit: dtypes, broadcasting, universal functions and linear algebra.**
+
+[Overview](https://moonbitstack.github.io/moonvec/) &nbsp;·&nbsp;
+[Guide](https://moonbitstack.github.io/moonvec/guide.html) &nbsp;·&nbsp;
+[API](https://moonbitstack.github.io/moonvec/api.html) &nbsp;·&nbsp;
+[mooncakes](https://mooncakes.io/docs/moonbitstack/moonvec)
 
 </div>
 

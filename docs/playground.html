@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playground — Numerical MoonBit Library</title>
+<meta name="description" content="Two interactive demonstrations of moonvec: broadcasting two shapes, and a least-squares line fitted while you drag the points.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;1,8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script>
+  try {
+    const entry = performance.getEntriesByType("navigation")[0];
+    if (entry && entry.type === "reload") sessionStorage.removeItem("moonvec-theme");
+    else {
+      const saved = sessionStorage.getItem("moonvec-theme");
+      if (saved) document.documentElement.dataset.theme = saved;
+    }
+  } catch {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="currentColor"></rect>
+        <g fill="var(--paper)">
+          <rect x="6" y="6" width="5" height="5"></rect><rect x="13.5" y="6" width="5" height="5"></rect><rect x="21" y="6" width="5" height="5"></rect>
+          <rect x="6" y="13.5" width="5" height="5"></rect><rect x="13.5" y="13.5" width="5" height="5"></rect><rect x="21" y="13.5" width="5" height="5"></rect>
+          <rect x="6" y="21" width="5" height="5"></rect><rect x="13.5" y="21" width="5" height="5"></rect>
+        </g>
+        <rect x="21" y="21" width="5" height="5" fill="var(--teal)"></rect>
+      </svg>
+      <span class="brand-name">moonvec</span>
+      <span class="brand-sub">numerical arrays</span>
+    </a>
+    <nav class="nav scroller" aria-label="Primary">
+      <a href="index.html">Overview</a>
+      <a href="guide.html">Guide</a>
+      <a href="api.html">API</a>
+      <a href="playground.html" aria-current="page">Playground</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.6 8.6 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7Z"></path></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"></circle><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"></path></svg>
+      </button>
+      <a class="icon-btn" href="https://github.com/moonbitstack/moonvec" aria-label="Source on GitHub">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <header class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Playground</p>
+      <h1>Numbers computed here, not drawn here.</h1>
+      <p class="lead">Both panels call the library compiled to JavaScript and running in this tab.
+        The page supplies the shape of the question and draws the answer; every value in the answer
+        comes back from the array code.</p>
+    </div>
+  </header>
+
+  <div class="wrap play">
+    <p class="engine-warning">The compiled engine did not load. It is built from
+      <code>src/examples/browser/</code> and served at <code>engine/moonvec.js</code>; open this page
+      from the deployed site, or build it with the command in the guide.</p>
+
+    <section class="demo" id="broadcast-demo">
+      <div class="demo-head">
+        <div>
+          <h2>Broadcast two shapes</h2>
+          <p>Pick an operand on each side. Compatible shapes stretch and add elementwise; incompatible
+            ones are refused with the library's own message, before anything is read.</p>
+        </div>
+        <span class="demo-tag">add</span>
+      </div>
+      <div class="demo-body">
+        <div class="broadcast-controls">
+          <div class="field">
+            <label for="operand-a">operand a</label>
+            <select id="operand-a">
+              <option value="3x1">3 × 1</option>
+              <option value="2x3">2 × 3</option>
+              <option value="1x4">1 × 4</option>
+              <option value="4">4</option>
+              <option value="2x2">2 × 2</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="operand-b">operand b</label>
+            <select id="operand-b">
+              <option value="1x4">1 × 4</option>
+              <option value="2x3">2 × 3</option>
+              <option value="3x1">3 × 1</option>
+              <option value="4">4</option>
+              <option value="2x2">2 × 2</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="broadcast-stage">
+          <div class="operand">
+            <div class="operand-label"><span class="op-name">a</span><span class="op-shape" id="shape-a">(3, 1)</span></div>
+            <div class="grid-plain" id="grid-a" aria-label="Operand a"></div>
+          </div>
+          <div class="operator" aria-hidden="true">+</div>
+          <div class="operand">
+            <div class="operand-label"><span class="op-name">b</span><span class="op-shape" id="shape-b">(1, 4)</span></div>
+            <div class="grid-plain" id="grid-b" aria-label="Operand b"></div>
+          </div>
+          <div class="operator" aria-hidden="true">=</div>
+          <div class="operand">
+            <div class="operand-label"><span class="op-name">a + b</span><span class="op-shape" id="shape-sum">(3, 4)</span></div>
+            <div class="grid-plain result" id="grid-sum" aria-label="Broadcast sum"></div>
+          </div>
+        </div>
+        <p class="demo-message" id="broadcast-message"></p>
+      </div>
+    </section>
+
+    <section class="demo">
+      <div class="demo-head">
+        <div>
+          <h2>Fit a line while you drag</h2>
+          <p>Eight points, and a straight line chosen by least squares. Move a point and the
+            coefficients are computed again by <code>lstsq</code>, which factors the design matrix
+            with Householder reflections.</p>
+        </div>
+        <span class="demo-tag">lstsq</span>
+      </div>
+      <div class="demo-body">
+        <div class="fit-layout">
+          <div>
+            <canvas id="fit-canvas" class="fit-canvas" width="640" height="380" aria-label="A scatter plot with a least-squares line; drag a point to move it"></canvas>
+            <p class="fit-hint">Drag a point. Dashed segments are the residuals the fit is minimising.</p>
+          </div>
+          <div class="fit-readout">
+            <dl>
+              <dt>slope</dt><dd id="fit-slope">—</dd>
+              <dt>intercept</dt><dd id="fit-intercept">—</dd>
+              <dt>residual</dt><dd id="fit-residual">—</dd>
+            </dl>
+            <p class="formula" id="fit-formula">—</p>
+            <div class="demo-actions">
+              <button class="btn ghost" id="fit-reset" type="button">Reset the points</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="note"><strong>What is compiled.</strong> The page loads one script built from
+      <code>src/examples/browser/</code>, a package that imports this library and exposes two
+      functions: one broadcasts a pair of shapes, the other fits a line. The drawing code knows
+      nothing about arrays.</div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div>
+      <a class="brand" href="index.html">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="currentColor"></rect>
+          <g fill="var(--paper)">
+            <rect x="6" y="6" width="5" height="5"></rect><rect x="13.5" y="6" width="5" height="5"></rect><rect x="21" y="6" width="5" height="5"></rect>
+            <rect x="6" y="13.5" width="5" height="5"></rect><rect x="13.5" y="13.5" width="5" height="5"></rect><rect x="21" y="13.5" width="5" height="5"></rect>
+            <rect x="6" y="21" width="5" height="5"></rect><rect x="13.5" y="21" width="5" height="5"></rect>
+          </g>
+          <rect x="21" y="21" width="5" height="5" fill="var(--teal)"></rect>
+        </svg>
+        <span class="brand-name">moonvec</span>
+      </a>
+      <p class="footer-note">Numerical arrays for MoonBit. Apache-2.0.</p>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="guide.html">Guide</a>
+      <a href="api.html">API</a>
+      <a href="playground.html">Playground</a>
+      <a href="https://mooncakes.io/docs/moonbitstack/moonvec">mooncakes</a>
+      <a href="https://github.com/moonbitstack/moonvec">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="engine/moonvec.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

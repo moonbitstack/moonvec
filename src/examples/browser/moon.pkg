@@ -1,0 +1,8 @@
+import {
+  "moonbitstack/moonvec" @vec,
+  "moonbitstack/moonvec/linalg",
+}
+
+pkgtype(kind: "executable")
+
+supported_targets = "js"
