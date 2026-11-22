@@ -308,3 +308,16 @@ body.no-engine .engine-warning {
   display: block;
 }
 
+
+/* Controls and the values they produce are read at a glance; the fitted coefficients remain
+   selectable because a reader may want to carry them into their own code. */
+.operand-label,
+.grid-plain,
+.operator,
+.demo-tag,
+.demo-actions,
+.field label,
+.fit-readout dt {
+  -webkit-user-select: none;
+  user-select: none;
+}

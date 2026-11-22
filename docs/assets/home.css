@@ -604,3 +604,19 @@
   line-height: 1.5;
   color: var(--ink-3);
 }
+
+/* The panel and the two diagrams are illustrations: their numbers and captions are read, not copied. */
+.panel,
+.buffer-row,
+.buffer-caption,
+.stride-grid,
+.bcast-label,
+.bcast-op,
+.bcast-join,
+.bcast-grid,
+.numbers,
+.package .path,
+.package ul {
+  -webkit-user-select: none;
+  user-select: none;
+}

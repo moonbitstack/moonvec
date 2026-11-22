@@ -779,3 +779,19 @@ html[data-theme="dark"] .i-moon {
   }
 }
 
+
+/* A drag across the page should take the article, not the navigation, a label or a control. Only
+   text that can be copied stays selectable: headings, prose, code, signatures and table cells. */
+.brand,
+.nav,
+.icon-btn,
+.btn,
+.copy,
+.skip-link,
+.footer-links,
+.code-head,
+.output .label,
+.install .prompt {
+  -webkit-user-select: none;
+  user-select: none;
+}

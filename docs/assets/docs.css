@@ -389,3 +389,15 @@ body.api-filtered .api-group:not(.has-match) {
   }
 }
 
+
+/* The rails are navigation. The filter is an input, where selection has to keep working. */
+.guide-nav,
+.api-side {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.api-search {
+  -webkit-user-select: text;
+  user-select: text;
+}
