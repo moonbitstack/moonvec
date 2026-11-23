@@ -689,4 +689,71 @@
     window.addEventListener("scroll", mark, { passive: true });
     mark();
   }
+
+  /* ---------- the lattice: a coordinate, its offset, its cell ---------- */
+
+  const lattice = document.querySelector("[data-lattice]");
+  if (lattice) {
+    const nodes = [...lattice.querySelectorAll(".node")];
+    const strip = lattice.querySelector(".space-strip");
+    const cells = [...strip.children];
+    const tuple = lattice.querySelector(".space-readout .tuple");
+    const offsetOut = lattice.querySelector(".space-readout .offset");
+    const layerOut = lattice.querySelector(".space-strip-label .layer");
+    const firstOut = lattice.querySelector(".space-strip-label .first");
+    const lastOut = lattice.querySelector(".space-strip-label .last");
+    let active = { k: 1, r: 2, c: 3 };
+
+    const draw = () => {
+      const offset = 12 * active.k + 4 * active.r + active.c;
+      for (const node of nodes) {
+        const { k, r, c } = node.dataset;
+        node.classList.toggle(
+          "on",
+          Number(k) === active.k && Number(r) === active.r && Number(c) === active.c,
+        );
+      }
+      const base = 12 * active.k;
+      cells.forEach((cell, index) => {
+        cell.textContent = String(base + index);
+        cell.classList.toggle("on", base + index === offset);
+      });
+      tuple.textContent = `[${active.k}, ${active.r}, ${active.c}]`;
+      offsetOut.textContent = String(offset);
+      layerOut.textContent = String(active.k);
+      firstOut.textContent = String(base);
+      lastOut.textContent = String(base + 11);
+    };
+
+    lattice.addEventListener("pointerover", (event) => {
+      const node = event.target.closest(".node");
+      if (!node) return;
+      active = { k: Number(node.dataset.k), r: Number(node.dataset.r), c: Number(node.dataset.c) };
+      draw();
+    });
+
+    lattice.addEventListener("keydown", (event) => {
+      const step = {
+        ArrowLeft: [0, -1],
+        ArrowRight: [0, 1],
+        ArrowUp: [-1, 0],
+        ArrowDown: [1, 0],
+      }[event.key];
+      if (step) {
+        event.preventDefault();
+        active = {
+          k: active.k,
+          r: Math.min(2, Math.max(0, active.r + step[0])),
+          c: Math.min(3, Math.max(0, active.c + step[1])),
+        };
+        draw();
+      } else if (event.key === " " || event.key === "Enter") {
+        event.preventDefault();
+        active = { ...active, k: 1 - active.k };
+        draw();
+      }
+    });
+
+    draw();
+  }
 })();
