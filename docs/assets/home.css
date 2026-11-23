@@ -254,8 +254,8 @@
 }
 
 .card .glyph {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   color: var(--blue);
   margin-bottom: 4px;
 }
@@ -619,4 +619,49 @@
 .package ul {
   -webkit-user-select: none;
   user-select: none;
+}
+
+/* The hero array carries its coordinates: column indices along the top, row indices down the left,
+   with a hairline on each axis so the grid reads as a coordinate frame rather than a table. */
+.array-frame {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  grid-template-rows: 14px auto;
+  gap: 3px 6px;
+}
+
+.array-frame .axis-cols {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+  gap: 4px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid color-mix(in srgb, var(--panel-dim) 30%, transparent);
+}
+
+.array-frame .axis-rows {
+  grid-column: 1;
+  grid-row: 2;
+  display: grid;
+  grid-template-rows: repeat(var(--rows, 3), minmax(0, 1fr));
+  gap: 4px;
+  padding-right: 2px;
+  border-right: 1px solid color-mix(in srgb, var(--panel-dim) 30%, transparent);
+}
+
+.array-frame .array-grid {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.array-frame .axis-cols span,
+.array-frame .axis-rows span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 9px;
+  line-height: 1;
+  color: var(--panel-dim);
 }

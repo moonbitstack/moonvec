@@ -293,8 +293,8 @@ samp {
 }
 
 .brand-mark {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   flex: none;
 }
 
@@ -369,8 +369,9 @@ samp {
 }
 
 .icon-btn svg {
-  width: 17px;
-  height: 17px;
+  width: 16px;
+  height: 16px;
+  display: block;
 }
 
 @media (width <= 860px) {
@@ -463,8 +464,9 @@ samp {
 }
 
 .btn svg {
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
+  display: block;
   flex: none;
 }
 
@@ -758,23 +760,23 @@ samp {
 
 /* theme toggle: one glyph of the pair is drawn at a time */
 
-.i-sun {
+.icon-btn .i-sun {
   display: none;
 }
 
-html[data-theme="dark"] .i-sun {
+html[data-theme="dark"] .icon-btn .i-sun {
   display: block;
 }
 
-html[data-theme="dark"] .i-moon {
+html[data-theme="dark"] .icon-btn .i-moon {
   display: none;
 }
 
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]) .i-sun {
+  html:not([data-theme="light"]) .icon-btn .i-sun {
     display: block;
   }
-  html:not([data-theme="light"]) .i-moon {
+  html:not([data-theme="light"]) .icon-btn .i-moon {
     display: none;
   }
 }

@@ -122,10 +122,37 @@
     return { shape, values };
   };
 
+  const indexInto = (container, count) => {
+    if (!container) return;
+    container.innerHTML = "";
+    for (let i = 0; i < count; i += 1) {
+      const mark = document.createElement("span");
+      mark.textContent = String(i);
+      container.appendChild(mark);
+    }
+  };
+
+  const frameAxes = (frame, shape) => {
+    if (!frame) return;
+    const rows = shape.length === 1 ? 1 : shape[0];
+    const cols = shape.length === 1 ? shape[0] : shape[shape.length - 1];
+    frame.style.setProperty("--cols", String(cols));
+    frame.style.setProperty("--rows", String(rows));
+    indexInto(frame.querySelector(".axis-cols"), cols);
+    indexInto(frame.querySelector(".axis-rows"), rows);
+  };
+
+  const clearAxes = (frame) => {
+    if (!frame) return;
+    frame.querySelector(".axis-cols").innerHTML = "";
+    frame.querySelector(".axis-rows").innerHTML = "";
+  };
+
   const fillGrid = (grid, shape, values, small) => {
     grid.innerHTML = "";
     const cols = shape.length === 1 ? shape[0] : shape[shape.length - 1];
     grid.style.setProperty("--cols", String(cols));
+    frameAxes(grid.closest(".array-frame"), shape);
     const low = Math.min(...values);
     const high = Math.max(...values);
     const span = high - low || 1;
@@ -162,6 +189,105 @@
 
   /* ---------- playground: broadcasting ---------- */
 
+  /* The select is hidden and the list is drawn here, so the open menu uses the page's own paper,
+     rule and teal instead of the operating system's menu. */
+  document.querySelectorAll("[data-picker]").forEach((root) => {
+    const select = document.getElementById(root.dataset.picker);
+    if (!select) return;
+    const button = root.querySelector(".picker-button");
+    const menu = root.querySelector(".picker-menu");
+    const value = root.querySelector(".picker-value");
+    const options = [...select.options].map((option, index) => {
+      const item = document.createElement("li");
+      item.className = "picker-option";
+      item.id = `${select.id}-option-${index}`;
+      item.tabIndex = -1;
+      item.setAttribute("role", "option");
+      item.dataset.value = option.value;
+      item.textContent = option.textContent.trim();
+      menu.appendChild(item);
+      return item;
+    });
+
+    const sync = () => {
+      const selected = options.find((item) => item.dataset.value === select.value) ?? options[0];
+      value.textContent = selected.textContent;
+      for (const item of options) {
+        item.setAttribute("aria-selected", String(item === selected));
+      }
+    };
+
+    const isOpen = () => button.getAttribute("aria-expanded") === "true";
+    const close = (focusButton) => {
+      if (!isOpen()) return;
+      button.setAttribute("aria-expanded", "false");
+      menu.hidden = true;
+      root.classList.remove("open");
+      if (focusButton) button.focus();
+    };
+    const open = (focusSelected) => {
+      button.setAttribute("aria-expanded", "true");
+      menu.hidden = false;
+      root.classList.add("open");
+      if (focusSelected) {
+        const selected = options.find((item) => item.getAttribute("aria-selected") === "true");
+        (selected ?? options[0])?.focus();
+      }
+    };
+    const choose = (item) => {
+      select.value = item.dataset.value;
+      sync();
+      close(true);
+      select.dispatchEvent(new Event("change"));
+    };
+
+    button.addEventListener("click", () => {
+      if (isOpen()) close(true);
+      else open(false);
+    });
+    button.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        open(true);
+      } else if (event.key === "Escape") {
+        close(true);
+      }
+    });
+    menu.addEventListener("keydown", (event) => {
+      const at = options.indexOf(document.activeElement);
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        options[Math.min(options.length - 1, at + 1)].focus();
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        options[Math.max(0, at - 1)].focus();
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        options[0].focus();
+      } else if (event.key === "End") {
+        event.preventDefault();
+        options[options.length - 1].focus();
+      } else if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        if (at >= 0) choose(options[at]);
+      } else if (event.key === "Escape") {
+        event.preventDefault();
+        close(true);
+      } else if (event.key === "Tab") {
+        close(false);
+      }
+    });
+    menu.addEventListener("click", (event) => {
+      const item = event.target.closest(".picker-option");
+      if (item) choose(item);
+    });
+    document.addEventListener("pointerdown", (event) => {
+      if (!root.contains(event.target)) close(false);
+    });
+    select.addEventListener("change", sync);
+    sync();
+  });
+
   const OPERANDS = {
     "2x3": { shape: [2, 3], values: [1, 2, 3, 4, 5, 6] },
     "3x1": { shape: [3, 1], values: [1, 2, 3] },
@@ -170,12 +296,13 @@
     "2x2": { shape: [2, 2], values: [1, 2, 3, 4] },
   };
 
-  const shapeText = (shape) => `(${shape.join(", ")})`;
+  const shapeText = (shape) => `[${shape.join(", ")}]`;
 
   const renderPlain = (grid, shape, values, tint) => {
     grid.innerHTML = "";
     const cols = shape.length === 1 ? shape[0] : shape[shape.length - 1];
     grid.style.setProperty("--cols", String(cols));
+    frameAxes(grid.closest(".grid-frame"), shape);
     const low = Math.min(...values);
     const high = Math.max(...values);
     const span = high - low || 1;
@@ -210,6 +337,9 @@
       const demo = window.moonvecDemo;
       if (!demo) {
         resultGrid.innerHTML = "";
+        resultGrid.classList.add("is-empty");
+        resultGrid.closest(".grid-frame")?.classList.add("is-empty");
+        clearAxes(resultGrid.closest(".grid-frame"));
         resultShape.textContent = "—";
         message.innerHTML = '<span class="err">the compiled engine is not loaded</span>';
         return;
@@ -223,6 +353,9 @@
       const parsed = parseBroadcast(demo.broadcast(request));
       if (parsed.error) {
         resultGrid.innerHTML = "";
+        resultGrid.classList.add("is-empty");
+        resultGrid.closest(".grid-frame")?.classList.add("is-empty");
+        clearAxes(resultGrid.closest(".grid-frame"));
         resultShape.textContent = "—";
         message.innerHTML = "";
         const line = document.createElement("span");
@@ -231,6 +364,8 @@
         message.appendChild(line);
         return;
       }
+      resultGrid.classList.remove("is-empty");
+      resultGrid.closest(".grid-frame")?.classList.remove("is-empty");
       resultShape.textContent = shapeText(parsed.shape);
       renderPlain(resultGrid, parsed.shape, parsed.values, true);
       message.textContent = `${shapeText(left.shape)} + ${shapeText(right.shape)} → ${shapeText(parsed.shape)}, one element at a time.`;
@@ -386,6 +521,19 @@
         context.lineWidth = 1.4;
         context.stroke();
       }
+
+      context.save();
+      context.fillStyle = theme.ink3;
+      context.font = "9px 'Source Code Pro', monospace";
+      context.textAlign = "right";
+      context.textBaseline = "bottom";
+      context.fillText("axis 1", area.left + area.width, area.top + area.height + 27);
+      context.translate(10, area.top + area.height);
+      context.rotate(-Math.PI / 2);
+      context.textAlign = "left";
+      context.textBaseline = "top";
+      context.fillText("axis 0", 0, 0);
+      context.restore();
     };
 
     const format = (value) => {
@@ -526,7 +674,7 @@
     [...document.querySelectorAll(".guide-nav a")].map((link) => [link.getAttribute("href"), link]),
   );
   if (steps.length && links.size) {
-    let current = steps[0].id;
+    let current = "";
     const mark = () => {
       const line = window.scrollY + 120;
       let found = steps[0].id;
