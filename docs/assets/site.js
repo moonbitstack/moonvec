@@ -3,7 +3,10 @@
 
 (() => {
   const root = document.documentElement;
-  if (!window.moonvecDemo) document.body.classList.add("no-engine");
+  // Only the playground has an engine to miss; the other pages say nothing about it.
+  if (!window.moonvecDemo && document.querySelector(".engine-warning")) {
+    document.body.classList.add("no-engine");
+  }
 
   /* ---------- theme ---------- */
 
@@ -69,8 +72,10 @@
       if (!done) return;
       const label = button.textContent;
       button.textContent = "Copied";
+      button.dataset.copied = "true";
       window.setTimeout(() => {
         button.textContent = label;
+        delete button.dataset.copied;
       }, 1400);
     });
   });
@@ -755,5 +760,22 @@
     });
 
     draw();
+  }
+
+  /* ---------- a light that follows the pointer ---------- */
+
+  const sheen = [...document.querySelectorAll("[data-sheen]")];
+  if (sheen.length && window.matchMedia("(pointer: fine)").matches) {
+    for (const host of sheen) {
+      host.addEventListener("pointermove", (event) => {
+        const box = host.getBoundingClientRect();
+        host.style.setProperty("--mx", `${((event.clientX - box.left) / box.width) * 100}%`);
+        host.style.setProperty("--my", `${((event.clientY - box.top) / box.height) * 100}%`);
+      });
+      host.addEventListener("pointerleave", () => {
+        host.style.setProperty("--mx", "50%");
+        host.style.setProperty("--my", "0%");
+      });
+    }
   }
 })();

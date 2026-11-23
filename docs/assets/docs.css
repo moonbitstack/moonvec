@@ -162,9 +162,12 @@
   padding: 8px 10px;
   border: 1px solid var(--rule-2);
   border-radius: 2px;
-  background: var(--surface);
+  background: var(--glass-strong);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   color: var(--ink);
   margin-bottom: 16px;
+  transition: border-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
 }
 
 .api-search {
@@ -197,24 +200,27 @@
 
 .api-side ul {
   list-style: none;
-  margin: 0;
+  margin: 0 0 4px;
   padding: 0;
+  border-left: 1px solid var(--rule);
 }
 
 .api-side li a {
   display: block;
-  padding: 3px 8px 3px 10px;
+  padding: 4px 10px 4px 12px;
   font-family: var(--mono);
   font-size: 11.5px;
   color: var(--ink-2);
   text-decoration: none;
-  border-radius: 0 2px 2px 0;
+  border-radius: 0 3px 3px 0;
   overflow-wrap: anywhere;
+  transition: color var(--fast) var(--ease), background var(--fast) var(--ease);
 }
 
+/* Same answer as the guide's rail: the row under the pointer takes a wash, not a border. */
 .api-side li a:hover {
   color: var(--ink);
-  background: color-mix(in srgb, var(--ink) 4%, transparent);
+  background: color-mix(in srgb, var(--ink) 3%, transparent);
 }
 
 .api-main {
@@ -234,9 +240,17 @@
 
 .api-package h2 {
   font-family: var(--mono);
-  font-size: 15px;
+  font-size: 17px;
   letter-spacing: 0.01em;
   font-weight: 600;
+}
+
+.pkg-index {
+  margin: 0 0 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
 }
 
 .api-package .pkg-note {
@@ -263,8 +277,15 @@
 
 .entry {
   border-top: 1px solid var(--rule);
-  padding: 16px 0 18px;
+  padding: 16px 12px 18px;
+  margin-inline: -12px;
   scroll-margin-top: 80px;
+  transition: background var(--fast) var(--ease);
+}
+
+/* An entry is long enough to read with the pointer somewhere on it; the tint shows which one. */
+.entry:hover {
+  background: color-mix(in srgb, var(--ink) 3.2%, transparent);
 }
 
 .entry:first-of-type {
@@ -399,13 +420,7 @@ body.api-filtered .api-group:not(.has-match) {
 }
 
 
-/* The rails are navigation. The filter is an input, where selection has to keep working. */
-.guide-nav,
-.api-side {
-  -webkit-user-select: none;
-  user-select: none;
-}
-
+/* The filter is an input, where selection has to keep working. */
 .api-search {
   -webkit-user-select: text;
   user-select: text;

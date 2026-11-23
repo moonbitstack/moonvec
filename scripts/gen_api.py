@@ -316,7 +316,7 @@ def render_entry(item, package, docs, level=0):
     return "\n".join(out)
 
 
-def build_package(package, directory, note):
+def build_package(package, directory, note, index=0):
     mbti = directory / "pkg.generated.mbti"
     items = read_mbti(mbti)
     docs = source_docs(directory)
@@ -357,6 +357,9 @@ def build_package(package, directory, note):
 
     body = [f'<section class="api-package" id="pkg-{package.replace("/", "-")}">']
     body.append('<header>')
+    # The packages are numbered the way the overview numbers its sections and the guide its steps:
+    # one index language for the whole site.
+    body.append(f'<p class="pkg-index">[{index}]</p>')
     body.append(f"<h2>{escape(package)}</h2>")
     body.append(f'<p class="pkg-note">{escape(note)}</p>')
     body.append("</header>")
@@ -558,9 +561,9 @@ def main():
     sections = []
     side = []
     totals = [0, 0, 0]
-    for package, directory, note in PACKAGES:
+    for index, (package, directory, note) in enumerate(PACKAGES):
         built, types, functions, values, errors, traits = build_package(
-            package, ROOT / directory, note
+            package, ROOT / directory, note, index
         )
         sections.append(built)
         side.append(sidebar_package(package, types, functions, values, errors, traits))
