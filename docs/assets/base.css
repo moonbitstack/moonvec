@@ -334,8 +334,10 @@ html:not(.at-top) .topbar {
 }
 
 .brand-mark {
-  width: 24px;
-  height: 24px;
+  /* Measured in rem, so the mark, the controls and the glyphs follow the reader's own type size
+     rather than sitting at a fixed number of pixels beside text that has grown. */
+  width: 1.5rem;
+  height: 1.5rem;
   flex: none;
 }
 
@@ -410,8 +412,8 @@ html:not(.at-top) .topbar {
 }
 
 .icon-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   display: block;
 }
 
@@ -514,8 +516,8 @@ html:not(.at-top) .topbar {
 }
 
 .btn svg {
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   display: block;
   flex: none;
   transition: transform var(--fast) var(--ease);
@@ -933,4 +935,47 @@ img {
   body {
     background-attachment: scroll;
   }
+}
+
+/* ---------- inline icons ----------
+
+   An arrow in running text is a glyph, so it is drawn rather than typed: one symbol, rotated, sized
+   in em. It takes the size of the text it sits in and the colour of the text around it. */
+
+/* Not `display: none`: a symbol inside a hidden tree is not reliably resolved by every engine. */
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.ico {
+  /* A filled triangle has more optical weight than a letter of the same height, so it is set a
+     little smaller than the em and raised to sit on the baseline. */
+  width: 0.72em;
+  height: 0.72em;
+  display: inline-block;
+  vertical-align: -0.04em;
+  fill: currentColor;
+  flex: none;
+}
+
+.ico.r {
+  transform: rotate(90deg);
+}
+
+.ico.d {
+  transform: rotate(180deg);
+}
+
+.ico.l {
+  transform: rotate(-90deg);
+}
+
+.key-pair {
+  display: inline-flex;
+  gap: 0.36em;
+  align-items: center;
+  vertical-align: -0.02em;
 }

@@ -373,7 +373,7 @@
       resultGrid.closest(".grid-frame")?.classList.remove("is-empty");
       resultShape.textContent = shapeText(parsed.shape);
       renderPlain(resultGrid, parsed.shape, parsed.values, true);
-      message.textContent = `${shapeText(left.shape)} + ${shapeText(right.shape)} → ${shapeText(parsed.shape)}, one element at a time.`;
+      message.textContent = `${shapeText(left.shape)} + ${shapeText(right.shape)} broadcast to ${shapeText(parsed.shape)}, one element at a time.`;
     };
 
     leftSelect.addEventListener("change", run);

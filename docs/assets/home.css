@@ -326,8 +326,8 @@
 }
 
 .card .glyph {
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
   color: var(--blue);
   margin-bottom: 4px;
   transition: color var(--fast) var(--ease);
@@ -368,13 +368,15 @@
   margin: 10px 0 16px;
 }
 
-.split p {
+/* Scoped to the prose column: the figures in the other column have their own type scale, and a
+   blanket `.split p` was overriding it. */
+.split-copy p {
   margin: 0 0 14px;
   color: var(--ink-2);
   font-size: 15.5px;
 }
 
-.split p:last-child {
+.split-copy p:last-child {
   margin-bottom: 0;
 }
 
@@ -786,15 +788,18 @@
 /* The upper plane is a surface, not a pane of glass: it hides the half of the lower plane behind it,
    which is what makes the stack read as depth rather than two drawings that overlap. Both planes are
    neutral; teal is kept for the one element and the one cell being pointed at. */
+/* Both planes are mixed from the card's own glass, so the surface sits at the same warmth as the
+   card rather than as a lighter hole in it; nine tenths of the upper one is enough to hide the far
+   half of the lower one while the dot grid still reads faintly through. */
 .lattice .plane {
-  fill: color-mix(in srgb, var(--ink) 8%, var(--surface));
-  stroke: color-mix(in srgb, var(--ink) 26%, transparent);
+  fill: color-mix(in srgb, var(--ink) 11%, var(--glass-strong));
+  stroke: color-mix(in srgb, var(--ink) 24%, transparent);
   stroke-width: 1;
 }
 
 .lattice .plane.far {
-  fill: color-mix(in srgb, var(--ink) 4%, var(--glass));
-  stroke: color-mix(in srgb, var(--ink) 14%, transparent);
+  fill: color-mix(in srgb, var(--ink) 7%, var(--glass));
+  stroke: color-mix(in srgb, var(--ink) 12%, transparent);
 }
 
 .lattice .node .hit {
@@ -905,6 +910,11 @@
 
 .space-readout .arrow {
   color: var(--ink-3);
+}
+
+.space-readout .ico {
+  width: 0.85em;
+  height: 0.85em;
 }
 
 .space-readout .formula {

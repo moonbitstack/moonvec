@@ -254,8 +254,8 @@
 }
 
 .picker-chevron {
-  width: 14px;
-  height: 14px;
+  width: 0.875rem;
+  height: 0.875rem;
   flex: none;
   transition: transform 160ms ease;
 }
