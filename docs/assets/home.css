@@ -789,16 +789,16 @@
    which is what makes the stack read as depth rather than two drawings that overlap. Both planes are
    neutral; teal is kept for the one element and the one cell being pointed at. */
 /* Both planes are mixed from the card's own glass, so the surface sits at the same warmth as the
-   card rather than as a lighter hole in it; nine tenths of the upper one is enough to hide the far
-   half of the lower one while the dot grid still reads faintly through. */
+   card rather than as a lighter hole in it. The share of ink is a token because the two themes need
+   different amounts to sit at the same apparent distance above their card. */
 .lattice .plane {
-  fill: color-mix(in srgb, var(--ink) 11%, var(--glass-strong));
+  fill: var(--plane);
   stroke: color-mix(in srgb, var(--ink) 24%, transparent);
   stroke-width: 1;
 }
 
 .lattice .plane.far {
-  fill: color-mix(in srgb, var(--ink) 7%, var(--glass));
+  fill: var(--plane-far);
   stroke: color-mix(in srgb, var(--ink) 12%, transparent);
 }
 

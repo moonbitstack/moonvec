@@ -15,7 +15,7 @@
   --panel-dim: #8fadb9;
   --ink: #0e2430;
   --ink-2: #445b66;
-  --ink-3: #74878f;
+  --ink-3: #5e7078;
   --rule: #dcd8ce;
   --rule-2: #c6c1b5;
   --blue: #1b5c88;
@@ -32,6 +32,11 @@
   --shadow-lift: 0 2px 4px rgb(14 36 48 / 7%), 0 26px 44px -26px rgb(14 36 48 / 40%);
   --wash-warm: color-mix(in srgb, var(--amber) 14%, transparent);
   --wash-cool: color-mix(in srgb, var(--blue) 9%, transparent);
+  /* The two planes of the lattice: a surface that hides the far half of the lower one while letting
+     the dot grid faintly through. Dark needs a larger share of ink to sit at the same distance above
+     its card, which is why this is a token and not a formula. */
+  --plane: color-mix(in srgb, var(--ink) 11%, var(--glass-strong));
+  --plane-far: color-mix(in srgb, var(--ink) 7%, var(--glass));
   --ease: cubic-bezier(0.2, 0.62, 0.2, 1);
   --fast: 140ms;
   --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
@@ -70,12 +75,16 @@
   --shadow-lift: 0 2px 6px rgb(0 0 0 / 32%), 0 30px 52px -28px rgb(0 0 0 / 74%);
   --wash-warm: color-mix(in srgb, var(--amber) 8%, transparent);
   --wash-cool: color-mix(in srgb, var(--teal) 10%, transparent);
+  --plane: color-mix(in srgb, var(--ink) 18%, var(--glass-strong));
+  --plane-far: color-mix(in srgb, var(--ink) 10%, var(--glass));
     --glass: color-mix(in srgb, var(--surface) 74%, transparent);
     --glass-strong: color-mix(in srgb, var(--surface) 92%, transparent);
     --shadow-soft: 0 1px 2px rgb(0 0 0 / 26%), 0 18px 38px -26px rgb(0 0 0 / 66%);
     --shadow-lift: 0 2px 6px rgb(0 0 0 / 32%), 0 30px 52px -28px rgb(0 0 0 / 74%);
     --wash-warm: color-mix(in srgb, var(--amber) 8%, transparent);
     --wash-cool: color-mix(in srgb, var(--teal) 10%, transparent);
+    --plane: color-mix(in srgb, var(--ink) 18%, var(--glass-strong));
+    --plane-far: color-mix(in srgb, var(--ink) 10%, var(--glass));
     color-scheme: dark;
   }
 }
@@ -107,6 +116,8 @@
   --shadow-lift: 0 2px 6px rgb(0 0 0 / 32%), 0 30px 52px -28px rgb(0 0 0 / 74%);
   --wash-warm: color-mix(in srgb, var(--amber) 8%, transparent);
   --wash-cool: color-mix(in srgb, var(--teal) 10%, transparent);
+  --plane: color-mix(in srgb, var(--ink) 18%, var(--glass-strong));
+  --plane-far: color-mix(in srgb, var(--ink) 10%, var(--glass));
   color-scheme: dark;
 }
 
